@@ -3,19 +3,23 @@ Collaborative Filtering for Netflix Prize
   大标题一般显示工程名,类似html的\<h1\><br />  
   你只要在标题下面跟上=====即可  
   
+    
+
     
-中标题  
------------------------------------  
-  中标题一般显示重点项,类似html的\<h2\><br />  
-  你只要在标题下面输入------即可  
-    
-### 小标题  
-  小标题类似html的\<h3\><br />  
-  小标题的格式如下 ### 小标题<br />  
-  注意#和标题字符中间要有空格  
-  
-### 注意!!!下面所有语法的提示我都先用小标题提醒了!!!   
-  
+### Baseline  
+
+The baseline estimator where we use the average rating (across all ratings in the training data), ![](http://latex.codecogs.com/gif.latex?\\bar{x}), as our estimator 3.5238 , with test error 1.1220.
+
+### Baseline with bias
+Now construct biases for each movie and user according to
+
+![](http://latex.codecogs.com/gif.latex?b_i:=\\frac{\sum_ux_{ui}}{M_i}-\bar{x})
+
+![](http://latex.codecogs.com/gif.latex?b_u:=\\frac{\sum_ix_{ui}}{M_u}-\bar{x})
+
+where Mi = # users that rated movie i and Mu = # movies rated by user u. The new baseline estimator is 
+
+![](http://latex.codecogs.com/gif.latex?x_{ui}=\bar{x}+b_u+b_i.)
 ### 单行文本框  
     这是一个单行的文本框,只要两个Tab再输入文字即可  
           

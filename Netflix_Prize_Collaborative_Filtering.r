@@ -46,9 +46,9 @@ for (u in U){
   Mu[u] = sum(train_df$user==u)
 }
 
-y=integer(10)
+y=integer(100)
 #cross validation
-for (lambda in 1:10){
+for (lambda in seq(1,10,0.1)){
   #construct A
   A=diag(max(V)+max(U))
   
@@ -72,9 +72,9 @@ for (lambda in 1:10){
   }
   solution <- solve(A,RHS)
   
-  y[lambda]=sqrt(mse(test_df$score,solution[test_df$user]+solution[test_df$film+rep(max(U),nrow(test_df))]+est))
+  y[lambda*10]=sqrt(mse(test_df$score,solution[test_df$user]+solution[test_df$film+rep(max(U),nrow(test_df))]+est))
 }
-plot(1:10,y)
+plot(seq(1,10,0.1),y)
 
 #choosing lambda=3.9
 lambda <- 3.9
@@ -131,8 +131,8 @@ for (i in 1:max(V)){
   }
 }
 
-
-for (k in c(15,25,50,75,100)){
+y=integer(100)
+for (k in seq(1,100,1)){
 L <- k
 for (j in 1:nrow(test_df)){
   u <- test_df[j,1]
@@ -149,7 +149,7 @@ for (j in 1:nrow(test_df)){
   under <- sum(abs(D[i,temp_index]))
   a[j] <- (test_df[j,3] - (est+solution[test_df[j,1]]+solution[test_df[j,2]+max(U)]+ temp/under) )^2
 }
-print(k)
-print(sqrt(mean(a, na.rm=TRUE)))
+y[k]=sqrt(mean(a, na.rm=TRUE))
 }    
+plot(seq(1,100,1),y)
 

@@ -32,7 +32,7 @@ This is an unconstrained concave optimization problem and the first order condit
 
 ![](http://latex.codecogs.com/gif.latex?b_i=\frac{\sum_{u:u~\text{rated}~i}\left(x_{ui}-b_u\right)-M_i\bar{x}}{\lambda+M_i})
 
-The best λ we found is 3.9 via cross validation, with test error 0.9585. A graph for test error as a function of λ is attached below.
+The best λ we found is 3.9 via cross validation, with test error 0.9585.
 
 ### Consruct the residual matrix
 
@@ -44,3 +44,5 @@ Now use a neighborhood method applied to the residual matrix to construct a new 
 
 ![](http://latex.codecogs.com/gif.latex?\hat{x}^N_{ui}=\bar{x}+b_u+b_i+\frac{\sum_{j\in{L_i}}d_{ij}\tilde{x}_{uj}}{\sum_{j\in{L_i}}|d_{ij}|})
 
+where Li denotes the neighborhood of movie i and the dij’s. We choose L, the size of a neighborhood, via validation on the test
+set. We found the best L = 72, with test error 0.9446. 

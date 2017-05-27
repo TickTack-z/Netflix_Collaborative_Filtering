@@ -1,10 +1,5 @@
 Collaborative Filtering for Netflix Prize  
 ===================================  
-  大标题一般显示工程名,类似html的\<h1\><br />  
-  你只要在标题下面跟上=====即可  
-  
-    
-
     
 ### Baseline  
 
@@ -19,55 +14,33 @@ Now construct biases for each movie and user according to
 
 where Mi = # users that rated movie i and Mu = # movies rated by user u. The new baseline estimator is 
 
-![](http://latex.codecogs.com/gif.latex?x_{ui}=\bar{x}+b_u+b_i.)
-### 单行文本框  
-    这是一个单行的文本框,只要两个Tab再输入文字即可  
-          
-### 多行文本框    
-    这是一个有多行的文本框  
-    你可以写入代码等,每行文字只要输入两个Tab再输入文字即可  
-    这里你可以输入一段代码  
-  
-### 比如我们可以在多行文本框里输入一段代码,来一个Java版本的HelloWorld吧  
-    public class HelloWorld {  
-  
-      /**  
-      * @param args  
-   */  
-   public static void main(String[] args) {  
-   System.out.println("HelloWorld!");  
-  
-   }  
-  
-    }  
-### 链接  
-1.[点击这里你可以链接到www.google.com](http://www.google.com)<br />  
-2.[点击这里我你可以链接到我的博客](http://guoyunsky.iteye.com)<br />  
-  
-###只是显示图片  
-![github](http://github.com/unicorn.png "github")  
-![baidu](http://www.baidu.com/img/bdlogo.gif "百度logo")  
-###想点击某个图片进入一个网页,比如我想点击github的icorn然后再进入www.github.com  
-[![image]](http://www.github.com/)  
-[image]: http://github.com/github.png "github"  
-  
-### 文字被些字符包围  
-> 文字被些字符包围  
->  
-> 只要再文字前面加上>空格即可  
->  
-> 如果你要换行的话,新起一行,输入>空格即可,后面不接文字  
-> 但> 只能放在行首才有效  
-  
-### 文字被些字符包围,多重包围  
-> 文字被些字符包围开始  
->  
-> > 只要再文字前面加上>空格即可  
->  
->  > > 如果你要换行的话,新起一行,输入>空格即可,后面不接文字  
->  
-> > > > 但> 只能放在行首才有效  
-  
-### 特殊字符处理  
-有一些特殊字符如<,#等,只要在特殊字符前面加上转义字符\即可<br />  
-你想换行的话其实可以直接用html标签\<br /\>  
+![](http://latex.codecogs.com/gif.latex?x_{ui}=\bar{x}+b_u+b_i)
+
+The test error is 0.9919 in this case.
+
+### Bias with Regularization 
+
+now use regularization and validation on the test set to choose the biases. That is, solve
+
+![](http://latex.codecogs.com/gif.latex?\\min_{b_i,b_u}\sum_{(u,i)}(x_{ui}-\hat{x_{ui}})^2+\lambda(\sum_ib_i^2+\sum_ub_u^2))
+
+where the sum is over observations (u,i) in the training data and choose λ ≥ 0 to be that value which gives the best performance on the test set. Note that we are really using the test set as a validation set here.
+
+This is an unconstrained concave optimization problem and the first order conditions will be sufficient to find the global optimum. these first order conditions (for user u and movie i) are:
+
+![](http://latex.codecogs.com/gif.latex?b_u=\frac{\sum_{i:i~\text{rated}~\text{by}~u}\left(x_{\text{ui}}-b_i\right)-M_u\bar{x}}{\lambda+M_u})
+
+![](http://latex.codecogs.com/gif.latex?b_i=\frac{\sum_{u:u~\text{rated}~i}\left(x_{ui}-b_u\right)-M_i\bar{x}}{\lambda+M_i})
+
+The best λ we found is 3.9 via cross validation, with test error 0.9585. A graph for test error as a function of λ is attached below.
+
+### Consruct the residual matrix
+
+Then we can use the estimator from above to construct a residual matrix
+
+### Neighborhood Method
+
+Now use a neighborhood method applied to the residual matrix to construct a new estimator of the form
+
+![](http://latex.codecogs.com/gif.latex?\hat{x}^N_{ui}=\bar{x}+b_u+b_i+\frac{\sum_{j\in{L_i}}d_{ij}\tilde{x}_{uj}}{\sum_{j\in{L_i}}|d_{ij}|})
+

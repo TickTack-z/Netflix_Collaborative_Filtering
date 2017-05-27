@@ -1,5 +1,5 @@
-train_df = read.csv("C:\\Users\\sxzho\\OneDrive\\IEOR4525\\HW7\\train.csv",header = FALSE)
-test_df = read.csv("C:\\Users\\sxzho\\OneDrive\\IEOR4525\\HW7\\test.csv",header = FALSE)
+train_df = read.csv("train.csv",header = FALSE)
+test_df = read.csv("test.csv",header = FALSE)
 headings <- c('user','film','score')
 names(train_df) <- headings
 names(test_df) <- headings

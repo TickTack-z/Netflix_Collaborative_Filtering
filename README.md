@@ -3,7 +3,7 @@ Collaborative Filtering for Netflix Prize
     
 ### Baseline  
 
-The baseline estimator where we use the average rating (across all ratings in the training data), ![](http://latex.codecogs.com/gif.latex?\\bar{x}), as our estimator 3.5238 , with test error 1.1220.
+The baseline estimator where we use the average rating (across all ratings in the training data), ![](http://latex.codecogs.com/gif.latex?\\bar{x}), as our estimator 3.5238 , with test error 1.1220. (The sample ranged from 0 to 5.)
 
 ### Baseline with bias
 Now construct biases for each movie and user according to

@@ -34,7 +34,7 @@ This is an unconstrained concave optimization problem and the first order condit
 
 The best λ we found is 3.9 via cross validation, with test error 0.9585.
 
-### Consruct the residual matrix
+### Consruct the Residual Matrix
 
 Then we can use the estimator from above to construct a residual matrix
 
